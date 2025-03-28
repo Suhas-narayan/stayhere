@@ -5,8 +5,8 @@ import { StarIcon } from "lucide-react"
 const testimonials = [
   {
     id: 1,
-    name: "Sarah Johnson",
-    location: "London, UK",
+    name: "Suhas",
+    location: "pattaya",
     image: "/placeholder.svg?height=100&width=100",
     testimonial:
       "We had an amazing stay at the mountain cabin. The views were breathtaking and the property was exactly as described. Can't wait to book again!",
@@ -14,8 +14,8 @@ const testimonials = [
   },
   {
     id: 2,
-    name: "Michael Rodriguez",
-    location: "Toronto, Canada",
+    name: "Darshan",
+    location: "kota kinabalu",
     image: "/placeholder.svg?height=100&width=100",
     testimonial:
       "The beach house exceeded our expectations. It was spotlessly clean and the host was incredibly responsive. Perfect location for our family vacation.",
@@ -23,8 +23,8 @@ const testimonials = [
   },
   {
     id: 3,
-    name: "Emily Chen",
-    location: "Sydney, Australia",
+    name: "Karthik",
+    location: "johor bahru",
     image: "/placeholder.svg?height=100&width=100",
     testimonial:
       "Booking was seamless and the property was even better than the photos showed. The kitchen was well-equipped and the beds were super comfortable.",
