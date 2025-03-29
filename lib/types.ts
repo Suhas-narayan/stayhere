@@ -1,16 +1,17 @@
 export interface Property {
+  _id: string
   id: string
-  title: string
+  name: string; 
   description: string
   location: string
   price: number
-  bedroomCount: number
-  bathroomCount: number
-  maxGuests: number
+  beds: number;           
+  bathrooms: number;       
+  guests: number;  
   amenities: string[]
   images: string[]
-  rating: number
-  reviewCount: number
+  ratings: number;         
+  totalReviews: number; 
   featured?: boolean
   geoLocation?: {
     lat: number
@@ -22,7 +23,7 @@ export interface Property {
     image: string
   }
   availability?: {
-    booked: string[] // Dates in ISO format that are booked
+    booked: string[] 
   }
 }
 

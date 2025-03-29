@@ -20,7 +20,7 @@ const destinations = [
   {
     id: 4,
     name: "Petaling jaya",
-    image: "PETALING.jpg/?height=400&width=600",
+    image: "pet.jpg/?height=400&width=600",
     properties: 189,
   },
   {
