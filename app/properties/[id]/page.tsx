@@ -79,54 +79,123 @@ export default function PropertyDetailsPage() {
   const propertyId = params?.id as string;
 
   // --- FETCHING LOGIC ---
-  useEffect(() => {
-    if (!propertyId || propertyId === "undefined") {
-      console.error("Invalid property ID in URL:", propertyId);
+  // useEffect(() => {
+  //   if (!propertyId || propertyId === "undefined") {
+  //     console.error("Invalid property ID in URL:", propertyId);
+  //     toast({
+  //       title: "Error",
+  //       description: "Invalid property ID.",
+  //       variant: "destructive",
+  //     });
+  //     setLoading(false);
+  //     return;
+  //   }
+
+  //   const fetchProperty = async () => {
+  //     setLoading(true);
+  //     try {
+  //       const apiUrl = `${process.env.NEXT_PUBLIC_API_URL}/api/products/${propertyId}`;
+  //       console.log("Fetching property from:", apiUrl);
+  //       const response = await fetch(apiUrl);
+
+  //       if (!response.ok) {
+  //         if (response.status === 404) {
+  //           throw new Error("Property not found");
+  //         }
+  //         throw new Error(`Failed to fetch property: ${response.statusText}`);
+  //       }
+  //       const data = await response.json();
+  //       if (!data || !data.product) {
+  //         console.error("Received invalid data structure from API:", data);
+  //         throw new Error("Received invalid data structure from API");
+  //       }
+  //       console.log("Fetched property data:", data.product);
+  //       setProperty(data.product as Property);
+  //       setGuestCount(1);
+  //     } catch (error: any) {
+  //       console.error("Error fetching property:", error);
+  //       toast({
+  //         title: "Error Loading Property",
+  //         description: error.message || "Failed to load property details. Please try again.",
+  //         variant: "destructive",
+  //       });
+  //       setProperty(null);
+  //     } finally {
+  //       setLoading(false);
+  //     }
+  //   };
+
+  //   fetchProperty();
+  // }, [propertyId, toast, router]);
+
+// --- FETCHING LOGIC ---
+useEffect(() => {
+  if (!propertyId || propertyId === "undefined") {
+    console.error("Invalid property ID in URL:", propertyId);
+    toast({
+      title: "Error",
+      description: "Invalid property ID.",
+      variant: "destructive",
+    });
+    setLoading(false);
+    return;
+  }
+
+  const fetchProperty = async () => {
+    setLoading(true);
+    try {
+      const apiUrl = `${process.env.NEXT_PUBLIC_API_URL}/api/products/${propertyId}`;
+      console.log("Fetching property from:", apiUrl);
+      const response = await fetch(apiUrl);
+
+      if (!response.ok) {
+        if (response.status === 404) {
+          throw new Error("Property not found");
+        }
+        throw new Error(`Failed to fetch property: ${response.statusText} (Status: ${response.status})`); // Added status code for clarity
+      }
+
+      const data = await response.json();
+
+      // --- START: MODIFIED SECTION ---
+      // Check if the received data is a valid object and not empty
+      if (!data || typeof data !== 'object' || Object.keys(data).length === 0) {
+        console.error("Received invalid or empty data structure from API:", data);
+        // Don't throw the generic error, let the 404 handling below catch it if needed,
+        // or show a specific message for empty data.
+        throw new Error("Received invalid or empty data from API");
+      }
+
+      console.log("Fetched property data:", data); // Log the direct data object
+      setProperty(data as Property); // Use the 'data' object directly
+      // --- END: MODIFIED SECTION ---
+
+      setGuestCount(1); // Reset guest count when property loads
+    } catch (error: any) {
+      console.error("Error fetching property:", error);
+      // Determine if it was a 404 or other error
+      const errorMessage = error.message?.includes("Property not found")
+        ? "The property could not be found."
+        : error.message?.includes("invalid or empty data")
+        ? "Received invalid details for this property."
+        : "Failed to load property details. Please try again.";
+
       toast({
-        title: "Error",
-        description: "Invalid property ID.",
+        title: "Error Loading Property",
+        description: errorMessage,
         variant: "destructive",
       });
+      setProperty(null); // Ensure property is null on error
+    } finally {
       setLoading(false);
-      return;
     }
+  };
 
-    const fetchProperty = async () => {
-      setLoading(true);
-      try {
-        const apiUrl = `${process.env.NEXT_PUBLIC_API_URL}/api/products/${propertyId}`;
-        console.log("Fetching property from:", apiUrl);
-        const response = await fetch(apiUrl);
+  fetchProperty();
+}, [propertyId, toast]); // Removed 'router' as it wasn't used in the effect
 
-        if (!response.ok) {
-          if (response.status === 404) {
-            throw new Error("Property not found");
-          }
-          throw new Error(`Failed to fetch property: ${response.statusText}`);
-        }
-        const data = await response.json();
-        if (!data || !data.product) {
-          console.error("Received invalid data structure from API:", data);
-          throw new Error("Received invalid data structure from API");
-        }
-        console.log("Fetched property data:", data.product);
-        setProperty(data.product as Property);
-        setGuestCount(1);
-      } catch (error: any) {
-        console.error("Error fetching property:", error);
-        toast({
-          title: "Error Loading Property",
-          description: error.message || "Failed to load property details. Please try again.",
-          variant: "destructive",
-        });
-        setProperty(null);
-      } finally {
-        setLoading(false);
-      }
-    };
 
-    fetchProperty();
-  }, [propertyId, toast, router]);
+
 
   // --- CALCULATIONS (Conditional) ---
   // Calculate these only if property exists to avoid errors during initial render/loading
