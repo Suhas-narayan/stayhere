@@ -565,9 +565,9 @@ export default function PropertyDetailsPage() {
 
             <div className="py-6">
               <Tabs defaultValue="reviews" className="w-full">
-                <TabsList className="mb-4 grid grid-cols-3 w-full sm:w-auto">
+                <TabsList className="mb-4 grid grid-cols-2 w-full sm:w-auto">
                   <TabsTrigger value="reviews">Reviews</TabsTrigger>
-                  <TabsTrigger value="location">Location</TabsTrigger>
+                  
                   <TabsTrigger value="policies">Policies</TabsTrigger>
                 </TabsList>
                 <TabsContent value="reviews">
@@ -615,17 +615,7 @@ export default function PropertyDetailsPage() {
                     </div>
                   </div>
                 </TabsContent>
-                <TabsContent value="location">
-                  <div className="space-y-4">
-                    <h3 className="text-lg font-semibold">Location</h3>
-                    <p className="text-muted-foreground">{property.location}</p>
-                    <div className="aspect-[16/9] bg-muted rounded-xl relative overflow-hidden"> 
-                      <div className="absolute inset-0 flex items-center justify-center"> 
-                        <p className="text-muted-foreground">Map view placeholder</p> 
-                      </div> 
-                    </div>
-                  </div>
-                </TabsContent>
+             
                 <TabsContent value="policies">
                   <div className="space-y-6 text-sm">
                     <div> 

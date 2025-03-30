@@ -28,15 +28,7 @@ export default function HeroSection() {
               Explore Rentals
             </Button>
           </Link>
-          {/* <Link href="/host">
-            <Button
-              size="lg"
-              variant="outline"
-              className="text-lg px-8 bg-transparent text-white border-white hover:bg-white/10"
-            >
-              Become a Host
-            </Button>
-          </Link> */}
+         
         </div>
       </div>
 

@@ -2,9 +2,7 @@
 
 import { useState, useEffect } from "react"
 import PropertyCard from "@/components/property-card"
-import { Button } from "@/components/ui/button"
 import { Skeleton } from "@/components/ui/skeleton"
-import { ChevronLeft, ChevronRight } from "lucide-react"
 import type { Property } from "@/lib/types"
 
 export default function FeaturedProperties() {

@@ -9,7 +9,6 @@ export async function POST(request: Request) {
   try {
     const { amount, propertyName, customerEmail } = await request.json();
 
-    // Create a PaymentIntent
     const paymentIntent = await stripe.paymentIntents.create({
       amount: Math.round(amount * 100), 
       currency: 'usd',

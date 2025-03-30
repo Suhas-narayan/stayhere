@@ -2,7 +2,7 @@
 
 import React, { createContext, useContext, useState, useEffect, ReactNode } from "react";
 import { onAuthStateChanged, User } from "firebase/auth";
-import { auth } from "@/lib/firebase"; // Adjust path if necessary
+import { auth } from "@/lib/firebase"; 
 import { Loader2 } from "lucide-react";
 
 interface AuthContextType {
@@ -29,13 +29,11 @@ export function AuthProvider({ children }: AuthProviderProps) {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // Listen for authentication state changes
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       setCurrentUser(user);
       setLoading(false);
     });
 
-    // Cleanup subscription on unmount
     return () => unsubscribe();
   }, []);
 
@@ -44,7 +42,6 @@ export function AuthProvider({ children }: AuthProviderProps) {
     loading,
   };
 
-  // Render loading indicator until Firebase checks auth state
   if (loading) {
      return (
        <div className="flex justify-center items-center min-h-screen">

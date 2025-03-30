@@ -1,4 +1,3 @@
-// hooks/use-auth.ts
 import { useState, useEffect } from 'react'
 import { 
   getAuth, 
@@ -40,32 +39,25 @@ export function useAuth() {
 
   const signIn = async (email: string, password: string) => {
     const userCredential = await signInWithEmailAndPassword(auth, email, password)
-    // Force update the user state
     setUser(userCredential.user)
     return userCredential
   }
 
   const signUp = async (email: string, password: string, name: string) => {
     const userCredential = await createUserWithEmailAndPassword(auth, email, password)
-    // You can update user profile here if needed
     return userCredential
   }
 
   const signInWithGoogle = async () => {
     try {
       const result = await signInWithPopup(auth, googleProvider)
-      // This gives you a Google Access Token. You can use it to access the Google API.
       const credential = GoogleAuthProvider.credentialFromResult(result)
       const token = credential?.accessToken
-      // The signed-in user info
       return result.user
     } catch (error: any) {
-      // Handle Errors here.
       const errorCode = error.code
       const errorMessage = error.message
-      // The email of the user's account used.
       const email = error.customData?.email
-      // The AuthCredential type that was used.
       const credential = GoogleAuthProvider.credentialFromError(error)
       throw error
     }

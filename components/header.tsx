@@ -32,17 +32,16 @@ export default function Header() {
 
   const navLinks = [
     { name: "Home", href: "/" },
-    // { name: "Explore", href: "/properties" },
+
     { name: "Destinations", href: "#popular-destinations" },
-    // { name: "About", href: "/about" },
-    // { name: "Contact", href: "/contact" },
+  
   ]
 
   return (
     <header className={headerClasses}>
       <div className="container max-w-7xl mx-auto px-4 h-16 flex items-center justify-between">
         <Link href="/" className="flex items-center">
-          <span className="text-xl font-bold text-primary">VacayStays</span>
+          <span className="text-xl font-bold text-primary">StayHere</span>
         </Link>
 
         {/* Desktop Navigation */}
@@ -98,7 +97,7 @@ export default function Header() {
             </SheetTrigger>
             <SheetContent side="right">
               <SheetHeader>
-                <SheetTitle>VacayStays</SheetTitle>
+                <SheetTitle>StayHere</SheetTitle>
                 <SheetDescription>Find your perfect getaway</SheetDescription>
               </SheetHeader>
               <nav className="flex flex-col gap-4 mt-8">
@@ -115,16 +114,12 @@ export default function Header() {
                           My Account
                         </Button>
                       </Link>
-                      {/* <Link href="/dashboard">
-                        <Button variant="outline" className="w-full mb-2">
-                          Dashboard
-                        </Button>
-                      </Link> */}
+                     
                       <Button
                         variant="secondary"
                         className="w-full"
                         onClick={() => {
-                          /* Handle logout */
+                      
                         }}
                       >
                         Sign out

@@ -11,7 +11,7 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           <div>
             <Link href="/" className="inline-block mb-4">
-              <span className="text-2xl font-bold">VacayStays</span>
+              <span className="text-2xl font-bold">StayHere</span>
             </Link>
             <p className="mb-4 text-primary-foreground/90">
               Discover and book beautiful vacation rentals around the world. Your perfect getaway is just a click away.
@@ -108,14 +108,14 @@ export default function Footer() {
               </li>
               <li className="flex items-center">
                 <Mail className="h-5 w-5 mr-2 flex-shrink-0" />
-                <span>info@vacaystays.com</span>
+                <span>info@StayHere.com</span>
               </li>
             </ul>
           </div>
         </div>
 
         <div className="border-t border-primary-foreground/20 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center">
-          <p>&copy; {currentYear} VacayStays. All rights reserved.</p>
+          <p>&copy; {currentYear} StayHere. All rights reserved.</p>
           <div className="flex flex-wrap gap-4 mt-4 md:mt-0">
             <Link href="/terms" className="hover:underline">
               Terms of Service
