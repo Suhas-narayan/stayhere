@@ -32,10 +32,10 @@ export default function Header() {
 
   const navLinks = [
     { name: "Home", href: "/" },
-    { name: "Explore", href: "/properties" },
-    { name: "Destinations", href: "/destinations" },
-    { name: "About", href: "/about" },
-    { name: "Contact", href: "/contact" },
+    // { name: "Explore", href: "/properties" },
+    { name: "Destinations", href: "#popular-destinations" },
+    // { name: "About", href: "/about" },
+    // { name: "Contact", href: "/contact" },
   ]
 
   return (
@@ -115,11 +115,11 @@ export default function Header() {
                           My Account
                         </Button>
                       </Link>
-                      <Link href="/dashboard">
+                      {/* <Link href="/dashboard">
                         <Button variant="outline" className="w-full mb-2">
                           Dashboard
                         </Button>
-                      </Link>
+                      </Link> */}
                       <Button
                         variant="secondary"
                         className="w-full"
