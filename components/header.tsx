@@ -10,6 +10,7 @@ import { ModeToggle } from "@/components/mode-toggle"
 import { Menu } from "lucide-react"
 import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet"
 
+
 export default function Header() {
   const pathname = usePathname()
   const { user, loading } = useAuth()

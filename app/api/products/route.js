@@ -10,7 +10,7 @@ cloudinary.config({
     secure: true,
 });
 
-// Helper function to clean string fields
+
 const cleanString = (str) => {
     if (!str) return str;
     return str.replace(/["\\]/g, '').trim();
@@ -45,12 +45,10 @@ export async function POST(req) {
         const formData = await req.formData();
         console.log("FormData received. Parsing fields...");
         
-        // Debug logging
         for (const [key, value] of formData.entries()) {
             console.log(`${key}: ${value instanceof File ? `File (${value.name}, ${value.size} bytes)` : value}`);
         }
 
-        // Handle image files
         const imageFiles = formData.getAll("images");
         const validImageFiles = imageFiles.filter(file => file instanceof File && file.size > 0 && file.name);
 
@@ -60,7 +58,7 @@ export async function POST(req) {
         }
         console.log(`${validImageFiles.length} valid image files identified.`);
 
-        // Extract and clean all fields
+    
         const name = cleanString(formData.get("name"));
         const description = cleanString(formData.get("description"));
         const priceStr = cleanString(formData.get("price"));
@@ -78,18 +76,16 @@ export async function POST(req) {
         const totalReviewsStr = cleanString(formData.get("totalReviews"));
         const totalReviews = totalReviewsStr ? parseInt(totalReviewsStr) : 0;
 
-        // Handle amenities
+      
         let amenities = [];
         const rawAmenities = formData.get("amenities");
         if (rawAmenities) {
             try {
                 if (rawAmenities.startsWith('[')) {
-                    // Parse as JSON array and clean each item
                     amenities = JSON.parse(rawAmenities)
                         .map(item => cleanString(item))
                         .filter(item => item);
                 } else {
-                    // Handle comma-separated string
                     amenities = rawAmenities.split(',')
                         .map(item => cleanString(item))
                         .filter(item => item);
@@ -101,7 +97,7 @@ export async function POST(req) {
         }
         console.log("Parsed amenities:", amenities);
 
-        // Handle availableDates
+
         let availableDates = [];
         const rawAvailableDates = formData.get("availableDates");
         if (rawAvailableDates) {
@@ -129,7 +125,6 @@ export async function POST(req) {
         }
         console.log("Parsed availableDates:", availableDates.map(d => d.toISOString()));
 
-        // Validation
         if (!name || !description || price === null || !location || beds === null || bathrooms === null || guests === null || !hostedBy) {
             const missingFields = [];
             if (!name) missingFields.push('name');
@@ -143,7 +138,6 @@ export async function POST(req) {
             return NextResponse.json({ error: `Missing required fields: ${missingFields.join(', ')}` }, { status: 400 });
         }
 
-        // Upload images
         let imageUrls = [];
         try {
             imageUrls = await Promise.all(
@@ -165,7 +159,7 @@ export async function POST(req) {
             return NextResponse.json({ error: "Image processing failed unexpectedly." }, { status: 500 });
         }
 
-        // Create and save product
+ 
         const newProduct = new ProductModel({
             name,
             description,
@@ -228,7 +222,7 @@ export async function GET() {
         const products = await ProductModel.find().sort({ createdAt: -1 });
         console.log(`Found ${products.length} products.`);
         
-        // Clean the products data before returning
+     
         const cleanedProducts = products.map(product => ({
             ...product.toObject(),
             name: cleanString(product.name),

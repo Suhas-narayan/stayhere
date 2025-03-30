@@ -27,12 +27,9 @@ export async function PUT(req, { params }) {
         
         console.log(`Deleting image ${imageUrl} from product ${id}`);
         
-        // Remove the image from the product's images array
         product.images = product.images.filter(img => img !== imageUrl);
         
-        // Optional: Delete from Cloudinary too
         try {
-            // Extract public_id from the URL
             const urlParts = imageUrl.split('/');
             const filenameWithExt = urlParts[urlParts.length - 1];
             const publicId = 'vacation_rentals/' + filenameWithExt.split('.')[0];
@@ -41,7 +38,7 @@ export async function PUT(req, { params }) {
             console.log(`Deleted image from Cloudinary: ${publicId}`);
         } catch (cloudinaryError) {
             console.error("Error deleting image from Cloudinary:", cloudinaryError);
-            // Continue even if Cloudinary delete fails
+
         }
         
         await product.save();

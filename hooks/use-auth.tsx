@@ -1,89 +1,79 @@
-"use client"
+// hooks/use-auth.ts
+import { useState, useEffect } from 'react'
+import { 
+  getAuth, 
+  onAuthStateChanged, 
+  User, 
+  signInWithEmailAndPassword, 
+  createUserWithEmailAndPassword, 
+  signOut,
+  GoogleAuthProvider,
+  signInWithPopup
+} from 'firebase/auth'
+import { initializeApp } from 'firebase/app'
 
-import type React from "react"
-
-import { createContext, useContext, useEffect, useState } from "react"
-import {
-  createUserWithEmailAndPassword,
-  signInWithEmailAndPassword,
-  signOut as firebaseSignOut,
-  onAuthStateChanged,
-  updateProfile,
-} from "firebase/auth"
-import { auth } from "@/lib/firebase"
-import type { User } from "@/lib/types"
-
-interface AuthContextType {
-  user: User | null
-  loading: boolean
-  signUp: (email: string, password: string, name: string) => Promise<void>
-  signIn: (email: string, password: string) => Promise<void>
-  signOut: () => Promise<void>
+const firebaseConfig = {
+  apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
+  authDomain: process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN,
+  projectId: process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID,
+  storageBucket: process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: process.env.NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID,
+  appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID
 }
 
-const AuthContext = createContext<AuthContextType>({
-  user: null,
-  loading: true,
-  signUp: async () => {},
-  signIn: async () => {},
-  signOut: async () => {},
-})
+const app = initializeApp(firebaseConfig)
+const auth = getAuth(app)
+const googleProvider = new GoogleAuthProvider()
 
-export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
+export function useAuth() {
   const [user, setUser] = useState<User | null>(null)
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (firebaseUser) => {
-      if (firebaseUser) {
-        const { uid, email, displayName, photoURL } = firebaseUser
-        // Convert Firebase user to our app's user model
-        setUser({
-          id: uid,
-          name: displayName || "User",
-          email: email || "",
-          photoURL: photoURL || undefined,
-          role: "user", // Default role - in a real app you'd fetch this from your database
-        })
-      } else {
-        setUser(null)
-      }
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      setUser(user)
       setLoading(false)
     })
 
     return () => unsubscribe()
   }, [])
 
-  const signUp = async (email: string, password: string, name: string) => {
-    try {
-      const userCredential = await createUserWithEmailAndPassword(auth, email, password)
-      await updateProfile(userCredential.user, { displayName: name })
-    } catch (error) {
-      console.error("Error signing up:", error)
-      throw error
-    }
-  }
-
   const signIn = async (email: string, password: string) => {
+    const userCredential = await signInWithEmailAndPassword(auth, email, password)
+    // Force update the user state
+    setUser(userCredential.user)
+    return userCredential
+  }
+
+  const signUp = async (email: string, password: string, name: string) => {
+    const userCredential = await createUserWithEmailAndPassword(auth, email, password)
+    // You can update user profile here if needed
+    return userCredential
+  }
+
+  const signInWithGoogle = async () => {
     try {
-      await signInWithEmailAndPassword(auth, email, password)
-    } catch (error) {
-      console.error("Error signing in:", error)
+      const result = await signInWithPopup(auth, googleProvider)
+      // This gives you a Google Access Token. You can use it to access the Google API.
+      const credential = GoogleAuthProvider.credentialFromResult(result)
+      const token = credential?.accessToken
+      // The signed-in user info
+      return result.user
+    } catch (error: any) {
+      // Handle Errors here.
+      const errorCode = error.code
+      const errorMessage = error.message
+      // The email of the user's account used.
+      const email = error.customData?.email
+      // The AuthCredential type that was used.
+      const credential = GoogleAuthProvider.credentialFromError(error)
       throw error
     }
   }
 
-  const signOut = async () => {
-    try {
-      await firebaseSignOut(auth)
-    } catch (error) {
-      console.error("Error signing out:", error)
-      throw error
-    }
+  const logOut = async () => {
+    await signOut(auth)
   }
 
-  return <AuthContext.Provider value={{ user, loading, signUp, signIn, signOut }}>{children}</AuthContext.Provider>
+  return { user, loading, signIn, signUp, signInWithGoogle, logOut }
 }
-
-export const useAuth = () => useContext(AuthContext)
-
