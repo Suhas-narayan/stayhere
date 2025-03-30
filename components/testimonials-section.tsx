@@ -7,7 +7,7 @@ const testimonials = [
     id: 1,
     name: "Suhas",
     location: "pattaya",
-    image: "/placeholder.svg?height=100&width=100",
+    image: "/test2.jpg?height=100&width=100",
     testimonial:
       "We had an amazing stay at the mountain cabin. The views were breathtaking and the property was exactly as described. Can't wait to book again!",
     rating: 5,
@@ -16,7 +16,7 @@ const testimonials = [
     id: 2,
     name: "Darshan",
     location: "kota kinabalu",
-    image: "/placeholder.svg?height=100&width=100",
+    image: "/test3.jpg?height=100&width=100",
     testimonial:
       "The beach house exceeded our expectations. It was spotlessly clean and the host was incredibly responsive. Perfect location for our family vacation.",
     rating: 5,
@@ -25,7 +25,7 @@ const testimonials = [
     id: 3,
     name: "Karthik",
     location: "johor bahru",
-    image: "/placeholder.svg?height=100&width=100",
+    image: "/test4.jpg?height=100&width=100",
     testimonial:
       "Booking was seamless and the property was even better than the photos showed. The kitchen was well-equipped and the beds were super comfortable.",
     rating: 4,

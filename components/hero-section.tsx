@@ -23,12 +23,12 @@ export default function HeroSection() {
           next getaway.
         </p>
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
-          <Link href="/properties">
+          <Link href="#featured-properties">
             <Button size="lg" className="text-lg px-8">
               Explore Rentals
             </Button>
           </Link>
-          <Link href="/host">
+          {/* <Link href="/host">
             <Button
               size="lg"
               variant="outline"
@@ -36,7 +36,7 @@ export default function HeroSection() {
             >
               Become a Host
             </Button>
-          </Link>
+          </Link> */}
         </div>
       </div>
 

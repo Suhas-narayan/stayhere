@@ -31,16 +31,9 @@ export default function FeaturedProperties() {
 
   return (
     <div>
-      <div className="flex justify-between items-center mb-6">
+      <div className="flex justify-between items-center mb-6" id="featured-properties">
         <p className="text-muted-foreground">Handpicked properties for an unforgettable vacation</p>
-        <div className="flex space-x-2">
-          <Button variant="outline" size="icon" className="rounded-full">
-            <ChevronLeft className="h-4 w-4" />
-          </Button>
-          <Button variant="outline" size="icon" className="rounded-full">
-            <ChevronRight className="h-4 w-4" />
-          </Button>
-        </div>
+      
       </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -60,11 +53,7 @@ export default function FeaturedProperties() {
             ))}
       </div>
 
-      <div className="mt-6 text-center">
-        <Button variant="outline" className="px-8">
-          View All Properties
-        </Button>
-      </div>
+      
     </div>
   )
 }

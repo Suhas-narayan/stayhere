@@ -560,7 +560,7 @@ export default function PropertyManager() {
             <Input
               id="hostedBy"
               {...register("hostedBy", { required: "Host name is required" })}
-              placeholder="e.g., John Doe"
+              placeholder="e.g., StayHere"
                className={errors.hostedBy ? "border-red-500" : ""}
             />
             {errors.hostedBy && <p className="text-xs text-red-600">{errors.hostedBy.message}</p>}

@@ -36,12 +36,12 @@ export default function Footer() {
             <h3 className="font-semibold text-lg mb-4">Quick Links</h3>
             <ul className="space-y-2">
               <li>
-                <Link href="/properties" className="hover:underline">
+                <Link href="#featured-properties" className="hover:underline">
                   Find Rentals
                 </Link>
               </li>
               <li>
-                <Link href="/destinations" className="hover:underline">
+                <Link href="#popular-destinations" className="hover:underline">
                   Popular Destinations
                 </Link>
               </li>
@@ -51,15 +51,16 @@ export default function Footer() {
                 </Link>
               </li>
               <li>
-                <Link href="/blog" className="hover:underline">
-                  Travel Blog
+                <Link href="/auth/login" className="hover:underline">
+                  Login
                 </Link>
               </li>
               <li>
-                <Link href="/host" className="hover:underline">
-                  Become a Host
+                <Link href="/auth/signup" className="hover:underline">
+                  Signup
                 </Link>
               </li>
+
             </ul>
           </div>
 
