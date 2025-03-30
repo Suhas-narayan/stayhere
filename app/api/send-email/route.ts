@@ -1,39 +1,61 @@
+
+
+
 import { NextResponse } from 'next/server';
 import nodemailer from 'nodemailer';
 
 export async function POST(request: Request) {
-  const { email, propertyName, dates, amount } = await request.json();
-
-  // Create a test account (only for development)
-  const testAccount = await nodemailer.createTestAccount();
-
-  const transporter = nodemailer.createTransport({
-    host: "smtp.ethereal.email",
-    port: 587,
-    secure: false,
-    auth: {
-      user: testAccount.user,
-      pass: testAccount.pass,
-    },
-  });
-
   try {
-    const info = await transporter.sendMail({
-      from: '"Vacation Rentals" <bookings@vacationrentals.com>',
-      to: email,
-      subject: `Booking Confirmation for ${propertyName}`,
-      html: `
-        <h1>Booking Confirmation</h1>
-        <p>Thank you for booking ${propertyName}!</p>
-        <p><strong>Dates:</strong> ${dates}</p>
-        <p><strong>Total Paid:</strong> $${amount}</p>
-        <p>We look forward to hosting you!</p>
-      `,
+    const { email, propertyName, dates, amount, guestName } = await request.json();
+
+    // Create Elastic Email transporter
+    const transporter = nodemailer.createTransport({
+      host: process.env.SMTP_HOST,
+      port: Number(process.env.SMTP_PORT),
+      secure: process.env.SMTP_PORT === '465', // true for 465, false for others
+      auth: {
+        user: process.env.SMTP_USER,
+        pass: process.env.SMTP_PASS,
+      },
     });
 
-    console.log("Preview URL: %s", nodemailer.getTestMessageUrl(info));
-    return NextResponse.json({ message: 'Email sent successfully' });
+    // Email content
+    const mailOptions = {
+      from: process.env.EMAIL_FROM,
+      to: email,
+      subject: `Booking Confirmation: ${propertyName}`,
+      html: `
+        <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
+          <h1 style="color: #2563eb;">Booking Confirmed!</h1>
+          <p>Dear ${guestName},</p>
+          
+          <div style="background: #f3f4f6; padding: 16px; border-radius: 8px; margin: 20px 0;">
+            <h2 style="margin-top: 0;">${propertyName}</h2>
+            <p><strong>Dates:</strong> ${dates}</p>
+            <p><strong>Total Amount:</strong> $${amount}</p>
+          </div>
+          
+          <p>If you have any questions, please reply to this email.</p>
+        </div>
+      `,
+    };
+
+    // Send email
+    const info = await transporter.sendMail(mailOptions);
+    
+    return NextResponse.json({ 
+      success: true,
+      messageId: info.messageId 
+    });
+
   } catch (error: any) {
-    return NextResponse.json({ error: error.message }, { status: 500 });
+    console.error('Email sending error:', error);
+    return NextResponse.json(
+      { 
+        error: 'Failed to send email',
+        details: process.env.NODE_ENV === 'development' ? error.message : undefined
+      },
+      { status: 500 }
+    );
   }
 }

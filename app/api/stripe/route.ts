@@ -6,11 +6,12 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
 });
 
 export async function POST(request: Request) {
-  const { amount, propertyName, customerEmail } = await request.json();
-
   try {
+    const { amount, propertyName, customerEmail } = await request.json();
+
+    // Create a PaymentIntent
     const paymentIntent = await stripe.paymentIntents.create({
-      amount: amount * 100, 
+      amount: Math.round(amount * 100), 
       currency: 'usd',
       metadata: {
         propertyName,
@@ -18,8 +19,14 @@ export async function POST(request: Request) {
       },
     });
 
-    return NextResponse.json({ clientSecret: paymentIntent.client_secret });
+    return NextResponse.json({ 
+      clientSecret: paymentIntent.client_secret 
+    });
   } catch (err: any) {
-    return NextResponse.json({ error: err.message }, { status: 400 });
+    console.error('Stripe API error:', err);
+    return NextResponse.json(
+      { error: err.message },
+      { status: 500 }
+    );
   }
 }
