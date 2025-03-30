@@ -4,7 +4,7 @@ import FeaturedProperties from "@/components/featured-properties"
 import PopularDestinations from "@/components/popular-destinations"
 import TestimonialsSection from "@/components/testimonials-section"
 import NewsletterSignup from "@/components/newsletter-signup"
-import Chatbot from "@/components/chatbot";
+import Chatbot from "../components/Chatbot";
 
 export default function Home() {
   return (
@@ -26,7 +26,7 @@ export default function Home() {
         <section className="mt-16">
           <NewsletterSignup />
         </section>
-        
+
         <section className="mt-16">
           <h2 className="text-3xl font-bold mb-6">What Guests Are Saying</h2>
           <TestimonialsSection />
