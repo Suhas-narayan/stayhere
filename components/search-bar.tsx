@@ -27,14 +27,8 @@ export default function SearchBar({ className }: SearchBarProps) {
   const isSearchDisabled = !location || !checkIn || !checkOut || !guests
 
   const handleSearch = () => {
-    const params = new URLSearchParams()
-    if (location) params.append("location", location)
-    if (checkIn) params.append("checkIn", checkIn.toISOString())
-    if (checkOut) params.append("checkOut", checkOut.toISOString())
-    if (guests) params.append("guests", guests)
-
-    router.push(`#popular-destinations?${params.toString()}`)
-  }
+      router.push(`/#featured-properties`)
+    }
 
   return (
     <div className={cn("bg-card shadow-lg rounded-xl p-4", className)}>
