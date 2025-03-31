@@ -3,7 +3,7 @@ import SearchBar from "@/components/search-bar"
 import FeaturedProperties from "@/components/featured-properties"
 import PopularDestinations from "@/components/popular-destinations"
 import TestimonialsSection from "@/components/testimonials-section"
-import NewsletterSignup from "@/components/newsletter-signup"
+import WhyChooseUs from "@/components/why-choose-us"
 import Chatbot from "../components/Chatbot";
 
 export default function Home() {
@@ -24,7 +24,7 @@ export default function Home() {
         </section>
 
         <section className="mt-16">
-          <NewsletterSignup />
+          <WhyChooseUs />
         </section>
 
         <section className="mt-16">

@@ -65,6 +65,10 @@ export default function Header() {
             ))}
           </ul>
 
+          <div className="flex items-center space-x-4">
+            <ModeToggle />
+           
+          </div>
         </nav>
 
         {/* Mobile Navigation */}
@@ -98,4 +102,5 @@ export default function Header() {
     </header>
   )
 }
+
 

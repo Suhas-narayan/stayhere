@@ -411,14 +411,16 @@ export default function PropertyDetailsPage() {
                 ))}
               </div>
             </div>
-            <Button 
-              variant="secondary" 
-              size="sm" 
-              className="absolute bottom-4 right-4 bg-white/90 hover:bg-white shadow-md" 
-              onClick={() => setSelectedImage(property.images[0])}
-            >
-              View all photos
-            </Button>
+           
+
+<Button 
+  variant="secondary" 
+  size="sm" 
+  className="absolute bottom-4 right-4 bg-white/90 hover:bg-white dark:bg-gray-800/90 dark:hover:bg-gray-700 shadow-md dark:text-white" 
+  onClick={() => setSelectedImage(property.images[0])}
+>
+  View all photos
+</Button>
           </div>
         ) : (
           <div className="mb-8 aspect-[16/9] bg-muted rounded-xl flex items-center justify-center">

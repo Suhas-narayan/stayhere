@@ -13,7 +13,7 @@ export default function BookingSuccess() {
       <p className="mb-6 text-muted-foreground max-w-md">
         Your booking has been confirmed. A confirmation email has been sent to you.
       </p>
-      <Link href="/properties">
+      <Link href="/">
         <Button>Browse More Properties</Button>
       </Link>
     </div>

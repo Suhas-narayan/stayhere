@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button"
 export default function HeroSection() {
   return (
     <div className="relative min-h-[85vh] flex items-center justify-center overflow-hidden">
-      {/* Background Image */}
+    
       <div
         className="absolute inset-0 bg-cover bg-center"
         style={{
@@ -13,7 +13,7 @@ export default function HeroSection() {
         }}
       />
 
-      {/* Content */}
+    
       <div className="relative z-10 text-center px-4 max-w-4xl">
         <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold text-white mb-6">
           Find Your Perfect <span className="text-secondary">Vacation Home</span>
@@ -32,7 +32,7 @@ export default function HeroSection() {
         </div>
       </div>
 
-      {/* Subtle gradient overlay at the bottom */}
+      
       <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-background/80 to-transparent" />
     </div>
   )
