@@ -31,7 +31,7 @@ export default function SearchBar({ className }: SearchBarProps) {
     if (checkOut) params.append("checkOut", checkOut.toISOString())
     if (guests) params.append("guests", guests)
 
-    router.push(`/properties?${params.toString()}`)
+    router.push(`#popular-destinations?${params.toString()}`)
   }
 
   return (
