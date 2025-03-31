@@ -12,7 +12,7 @@ export default function HeroSection() {
           muted
           playsInline
           className="w-full h-full object-cover"
-          poster="/hero-video-poster.jpg" 
+          poster="/heroimg2.jpg" 
         >
           <source src="/herovideo.mp4" type="video/mp4" />
           <source src="/herovideo.webm" type="video/webm" /> 
@@ -31,9 +31,9 @@ export default function HeroSection() {
       
       <div className="relative z-10 text-center px-4 max-w-4xl">
         <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold text-white mb-6">
-          "Your Dream Stay, <br /><span className="text-secondary">Just a Click Away"</span>
+          Your Dream Stay <br /><span className="text-secondary">Just a Click Away</span>
         </h1>
-        <p className="text-xl text-white mb-8 max-w-2xl mx-auto">
+        <p className="text-xl text-white mb-8 max-w-2xl mx-auto ">
           Discover exceptional vacation rentals worldwide. Book unique homes, cabins, beach houses, and more for your
           next getaway.
         </p>

@@ -24,7 +24,7 @@ export default function LoginPage() {
     setError(null);
     try {
       await signInWithEmailAndPassword(auth, data.email, data.password);
-      router.push("/cms"); // Redirect to CMS page on successful login
+      router.push("/cms"); 
     } catch (err: any) {
       console.error("Login error:", err);
       setError(err.message || "Failed to log in. Please check your credentials.");
@@ -54,6 +54,7 @@ export default function LoginPage() {
                 id="email"
                 type="email"
                 placeholder="you@example.com"
+                className="placeholder:text-gray-400" 
                 {...register("email", { required: "Email is required" })}
               />
               {errors.email && <p className="text-red-600 text-sm">{errors.email.message as string}</p>}
@@ -64,6 +65,7 @@ export default function LoginPage() {
                 id="password"
                 type="password"
                 placeholder="••••••••"
+                className="placeholder:text-gray-400" 
                 {...register("password", { required: "Password is required" })}
               />
               {errors.password && <p className="text-red-600 text-sm">{errors.password.message as string}</p>}
