@@ -10,11 +10,11 @@ import { ModeToggle } from "@/components/mode-toggle"
 import { Menu } from "lucide-react"
 import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet"
 
-
 export default function Header() {
   const pathname = usePathname()
   const { user, loading } = useAuth()
   const [scrolled, setScrolled] = useState(false)
+  const [open, setOpen] = useState(false)
   const isHome = pathname === "/"
 
   useEffect(() => {
@@ -26,15 +26,17 @@ export default function Header() {
     return () => window.removeEventListener("scroll", handleScroll)
   }, [])
 
+  useEffect(() => {
+    setOpen(false)
+  }, [pathname])
+
   const headerClasses = `sticky top-0 z-50 w-full transition-all duration-300 ${
     scrolled || !isHome ? "bg-background border-b shadow-sm" : "bg-transparent"
   }`
 
   const navLinks = [
     { name: "Home", href: "/" },
-
     { name: "Destinations", href: "#popular-destinations" },
-  
   ]
 
   return (
@@ -44,7 +46,7 @@ export default function Header() {
           <span className="text-xl font-bold text-primary">StayHere</span>
         </Link>
 
-        {/* Desktop Navigation */}
+     
         <nav className="hidden md:flex items-center space-x-8">
           <ul className="flex space-x-8">
             {navLinks.map((link) => (
@@ -67,15 +69,14 @@ export default function Header() {
 
           <div className="flex items-center space-x-4">
             <ModeToggle />
-           
           </div>
         </nav>
 
-        {/* Mobile Navigation */}
+      
         <div className="flex items-center space-x-4 md:hidden">
           <ModeToggle />
 
-          <Sheet>
+          <Sheet open={open} onOpenChange={setOpen}>
             <SheetTrigger asChild>
               <Button variant="ghost" size="icon">
                 <Menu className="h-5 w-5" />
@@ -89,11 +90,31 @@ export default function Header() {
               </SheetHeader>
               <nav className="flex flex-col gap-4 mt-8">
                 {navLinks.map((link) => (
-                  <Link key={link.name} href={link.href} className="text-lg font-medium hover:text-primary">
+                  <Link 
+                    key={link.name} 
+                    href={link.href} 
+                    className="text-lg font-medium hover:text-primary"
+                    onClick={() => setOpen(false)}
+                  >
                     {link.name}
                   </Link>
                 ))}
                 
+              
+                <Link 
+                  href="/auth/login" 
+                  className="text-lg font-medium hover:text-primary"
+                  onClick={() => setOpen(false)}
+                >
+                  Login
+                </Link>
+                <Link 
+                  href="/auth/signup" 
+                  className="text-lg font-medium hover:text-primary"
+                  onClick={() => setOpen(false)}
+                >
+                  Sign Up
+                </Link>
               </nav>
             </SheetContent>
           </Sheet>
@@ -102,5 +123,3 @@ export default function Header() {
     </header>
   )
 }
-
-

@@ -30,7 +30,7 @@ export default function FeaturedProperties() {
   return (
     <div>
       <div className="flex justify-between items-center mb-6" id="featured-properties">
-        <p className="text-muted-foreground">Handpicked properties for an unforgettable vacation</p>
+        <p className="text-muted-foreground">From cozy cabins to beachfront villas, we've got your next escape covered</p>
       
       </div>
 

@@ -14,7 +14,7 @@ export default function Home() {
         <SearchBar className="mt-[-3rem] relative z-10" />
 
         <section className="mt-16">
-          <h2 className="text-3xl font-bold mb-6">Featured Stays</h2>
+          <h2 className="text-3xl font-bold mb-6">Stay Anywhere, Feel at Home</h2>
           <FeaturedProperties />
         </section>
 
