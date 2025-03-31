@@ -22,6 +22,8 @@ export default function SearchBar({ className }: SearchBarProps) {
   const [checkOut, setCheckOut] = useState<Date | undefined>()
   const [guests, setGuests] = useState("2")
 
+  const isSearchDisabled = !location || !checkIn || !checkOut || !guests
+
   const handleSearch = () => {
     const params = new URLSearchParams()
     if (location) params.append("location", location)
@@ -105,7 +107,12 @@ export default function SearchBar({ className }: SearchBarProps) {
             </SelectContent>
           </Select>
 
-          <Button onClick={handleSearch} size="icon" className="bg-secondary hover:bg-secondary/90">
+          <Button 
+            onClick={handleSearch} 
+            size="icon" 
+            className="bg-secondary hover:bg-secondary/90"
+            disabled={isSearchDisabled}
+          >
             <Search className="h-4 w-4" />
           </Button>
         </div>
@@ -113,4 +120,3 @@ export default function SearchBar({ className }: SearchBarProps) {
     </div>
   )
 }
-
