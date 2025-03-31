@@ -65,23 +65,6 @@ export default function Header() {
             ))}
           </ul>
 
-          <div className="flex items-center space-x-4">
-            <ModeToggle />
-            {loading ? (
-              <div className="h-8 w-8 rounded-full bg-muted animate-pulse"></div>
-            ) : user ? (
-              <UserNav />
-            ) : (
-              <div className="flex items-center space-x-4">
-                <Link href="/login">
-                  <Button variant="outline">Log in</Button>
-                </Link>
-                <Link href="/signup">
-                  <Button>Sign up</Button>
-                </Link>
-              </div>
-            )}
-          </div>
         </nav>
 
         {/* Mobile Navigation */}
@@ -106,38 +89,7 @@ export default function Header() {
                     {link.name}
                   </Link>
                 ))}
-                <div className="pt-4 border-t mt-4">
-                  {user ? (
-                    <>
-                      <Link href="/account">
-                        <Button variant="outline" className="w-full mb-2">
-                          My Account
-                        </Button>
-                      </Link>
-                     
-                      <Button
-                        variant="secondary"
-                        className="w-full"
-                        onClick={() => {
-                      
-                        }}
-                      >
-                        Sign out
-                      </Button>
-                    </>
-                  ) : (
-                    <>
-                      <Link href="/login">
-                        <Button variant="outline" className="w-full mb-2">
-                          Log in
-                        </Button>
-                      </Link>
-                      <Link href="/signup">
-                        <Button className="w-full">Sign up</Button>
-                      </Link>
-                    </>
-                  )}
-                </div>
+                
               </nav>
             </SheetContent>
           </Sheet>

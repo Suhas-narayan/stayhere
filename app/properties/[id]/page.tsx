@@ -372,10 +372,7 @@ export default function PropertyDetailsPage() {
                 <span>{property.location}</span>
               </div>
             </div>
-            <div className="flex gap-2">
-              <Button variant="outline" size="sm"> <Share2 className="h-4 w-4 mr-2" /> Share </Button>
-              <Button variant="outline" size="sm"> <Heart className="h-4 w-4 mr-2" /> Save </Button>
-            </div>
+           
           </div>
         </div>
 
@@ -532,36 +529,6 @@ export default function PropertyDetailsPage() {
                )}
              </div>
 
-             <div className="py-6 border-b">
-               <h3 className="text-xl font-semibold mb-4">Availability</h3>
-               <p className="mb-4 text-muted-foreground text-sm">Select check-in and check-out dates.</p>
-               <Button 
-                 variant="outline" 
-                 onClick={() => setCalendarOpen(!calendarOpen)} 
-                 className="mb-4 w-full sm:w-auto justify-start text-left font-normal" 
-               >
-                 <CalendarDays className="h-4 w-4 mr-2" />
-                 <span> 
-                   {selectedDates.from ? (
-                     selectedDates.to ? 
-                       `${selectedDates.from.toLocaleDateString()} - ${selectedDates.to.toLocaleDateString()}` 
-                       : selectedDates.from.toLocaleDateString()
-                   ) : "Select your dates"} 
-                 </span>
-               </Button>
-               {calendarOpen && (
-                 <div className="my-4 p-1 border rounded-lg flex justify-center bg-card">
-                   <Calendar 
-                     mode="range" 
-                     selected={selectedDates} 
-                     onSelect={(range) => setSelectedDates(range || { from: undefined, to: undefined })} 
-                     numberOfMonths={1} 
-                     disabled={disabledDates} 
-                     fromDate={new Date()} 
-                   />
-                 </div>
-               )}
-             </div>
 
             <div className="py-6">
               <Tabs defaultValue="reviews" className="w-full">
@@ -621,10 +588,10 @@ export default function PropertyDetailsPage() {
                     <div> 
                       <h3 className="text-lg font-semibold mb-2">House Rules</h3> 
                       <ul className="list-disc pl-5 text-muted-foreground space-y-1"> 
-                        <li>Check-in: After 4:00 PM (example)</li> 
-                        <li>Checkout: Before 11:00 AM (example)</li> 
+                        <li>Check-in: After 4:00 PM </li> 
+                        <li>Checkout: Before 11:00 AM </li> 
                         <li>No smoking</li> 
-                        <li>No pets (example)</li> 
+                        <li>No pets </li> 
                       </ul> 
                     </div>
                   </div>
@@ -669,6 +636,21 @@ export default function PropertyDetailsPage() {
                         </span> 
                       </div>
                     </button>
+                    {calendarOpen && (
+                      <div className="border-t p-4">
+                        <Calendar 
+                          mode="range" 
+                          selected={selectedDates} 
+                          onSelect={(range) => {
+                            setSelectedDates(range || { from: undefined, to: undefined });
+                            setCalendarOpen(false);
+                          }} 
+                          numberOfMonths={1} 
+                          disabled={disabledDates} 
+                          fromDate={new Date()} 
+                        />
+                      </div>
+                    )}
                     <div className="border-t p-3">
                       <Label htmlFor="guest-selector-button-decrease" className="text-xs font-bold tracking-wider text-muted-foreground block mb-2 uppercase">
                         Guests
