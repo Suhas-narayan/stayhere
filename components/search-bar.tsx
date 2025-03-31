@@ -21,6 +21,8 @@ export default function SearchBar({ className }: SearchBarProps) {
   const [checkIn, setCheckIn] = useState<Date | undefined>()
   const [checkOut, setCheckOut] = useState<Date | undefined>()
   const [guests, setGuests] = useState("2")
+  const [isCheckInOpen, setIsCheckInOpen] = useState(false)
+  const [isCheckOutOpen, setIsCheckOutOpen] = useState(false)
 
   const isSearchDisabled = !location || !checkIn || !checkOut || !guests
 
@@ -51,7 +53,7 @@ export default function SearchBar({ className }: SearchBarProps) {
         </div>
 
         <div>
-          <Popover>
+          <Popover open={isCheckInOpen} onOpenChange={setIsCheckInOpen}>
             <PopoverTrigger asChild>
               <Button variant="outline" className="w-full justify-start text-left font-normal">
                 <CalendarIcon className="mr-2 h-4 w-4" />
@@ -62,7 +64,10 @@ export default function SearchBar({ className }: SearchBarProps) {
               <Calendar
                 mode="single"
                 selected={checkIn}
-                onSelect={setCheckIn}
+                onSelect={(date) => {
+                  setCheckIn(date)
+                  setIsCheckInOpen(false)
+                }}
                 initialFocus
                 disabled={(date) => date < new Date()}
               />
@@ -71,7 +76,7 @@ export default function SearchBar({ className }: SearchBarProps) {
         </div>
 
         <div>
-          <Popover>
+          <Popover open={isCheckOutOpen} onOpenChange={setIsCheckOutOpen}>
             <PopoverTrigger asChild>
               <Button variant="outline" className="w-full justify-start text-left font-normal">
                 <CalendarIcon className="mr-2 h-4 w-4" />
@@ -82,7 +87,10 @@ export default function SearchBar({ className }: SearchBarProps) {
               <Calendar
                 mode="single"
                 selected={checkOut}
-                onSelect={setCheckOut}
+                onSelect={(date) => {
+                  setCheckOut(date)
+                  setIsCheckOutOpen(false)
+                }}
                 initialFocus
                 disabled={(date) => date < (checkIn || new Date())}
               />
