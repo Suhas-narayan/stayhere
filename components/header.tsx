@@ -101,7 +101,7 @@ export default function Header() {
                 ))}
                 
               
-                <Link 
+                {/* <Link 
                   href="/auth/login" 
                   className="text-lg font-medium hover:text-primary"
                   onClick={() => setOpen(false)}
@@ -114,7 +114,8 @@ export default function Header() {
                   onClick={() => setOpen(false)}
                 >
                   Sign Up
-                </Link>
+                </Link> */}
+                
               </nav>
             </SheetContent>
           </Sheet>
